@@ -5,17 +5,17 @@ let message = document.querySelector(".message");
 
 let game_state = "Start";
 let bird_dy = 0;
-let gravity = 0.15;
-let jump_strength = -4.5;
-let move_speed = 2.5;
+
+// --- SLOW GAME SETTINGS ---
+let gravity = 0.08;          // gentle fall
+let jump_strength = -3.5;    // soft jump
+let move_speed = 1.2;        // slow pipe movement
 let pipe_timer = 0;
-let pipe_gap = window.innerWidth < 768 ? 120 : 200;
+let pipe_gap = window.innerWidth < 768 ? 180 : 280; // bigger gap for easy pass
 
 let hitbox = { top: 6, bottom: 6, left: 3, right: 3 };
 
 bird.style.display = "none";
-
-// Prevent scrolling with arrow keys
 window.addEventListener("keydown", e => { if(e.key === "ArrowUp") e.preventDefault(); });
 
 function startGame() {
@@ -73,7 +73,7 @@ function play(){
     function createPipe(){
         if(game_state!=="Play") return;
         pipe_timer++;
-        if(pipe_timer > 100){
+        if(pipe_timer > 180){   // longer interval → pipes appear more slowly
             pipe_timer = 0;
             let max_pipe_height = game.offsetHeight - pipe_gap - 30;
             let pipe_pos = Math.random() * max_pipe_height + 15;
